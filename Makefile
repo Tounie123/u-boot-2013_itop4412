@@ -185,6 +185,9 @@ ifeq ($(HOSTARCH),$(ARCH))
 CROSS_COMPILE ?=
 endif
 
+ifeq (arm,$(ARCH))
+CROSS_COMPILE ?= arm-unknown-linux-gnueabi-
+endif
 # load other configuration
 include $(TOPDIR)/config.mk
 
