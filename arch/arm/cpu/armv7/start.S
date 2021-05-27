@@ -128,6 +128,7 @@ reset:
 	/*
 	 * set the cpu to SVC32 mode
 	 */
+	// 将CPU设置为SVC模式，并且关闭中断
 	mrs	r0, cpsr
 	bic	r0, r0, #0x1f
 	orr	r0, r0, #0xd3
@@ -138,12 +139,14 @@ reset:
  * (OMAP4 spl TEXT_BASE is not 32 byte aligned.
  * Continue to use ROM code vector only in OMAP4 spl)
  */
+// 设置异常向量表地址: 0x0~0x1c
 #if !(defined(CONFIG_OMAP44XX) && defined(CONFIG_SPL_BUILD))
 	/* Set V=0 in CP15 SCTRL register - for VBAR to point to vector */
 	mrc	p15, 0, r0, c1, c0, 0	@ Read CP15 SCTRL Register
-	bic	r0, #CR_V		@ V = 0
+	bic	r0, #CR_V		@ V = 0 将r0的bit[13]清0
 	mcr	p15, 0, r0, c1, c0, 0	@ Write CP15 SCTRL Register
 
+	// 设置异常向量基地址:
 	/* Set vector address in CP15 VBAR register */
 	ldr	r0, =_start
 	mcr	p15, 0, r0, c12, c0, 0	@Set VBAR
