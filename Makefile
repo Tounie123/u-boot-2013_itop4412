@@ -444,6 +444,14 @@ $(obj)u-boot.bin:	$(obj)u-boot
 		$(OBJCOPY) ${OBJCFLAGS} -O binary $< $@
 		$(BOARD_SIZE_CHECK)
 
+		@split -b 14336 u-boot.bin bl2
+		@+make -C sdfuse_q/
+		@./sdfuse_q/chksum
+		@./sdfuse_q/add_padding
+		@rm bl2a*
+
+		@echo
+
 $(obj)u-boot.ldr:	$(obj)u-boot
 		$(CREATE_LDR_ENV)
 		$(LDR) -T $(CONFIG_BFIN_CPU) -c $@ $< $(LDR_FLAGS)

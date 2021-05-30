@@ -124,6 +124,26 @@ IRQ_STACK_START_IN:
  */
 
 reset:
+    #if 1
+    // 点亮LED2
+    ldr r0, =0x11000100
+    mov r1, #(0x01 << 0)
+    str r1, [r0]
+
+    ldr r0, =0x11000104
+    mov r1, #0x1
+    str r1, [r0]
+
+    // 点亮LED3
+    ldr r0, =0x11000060
+    mov r1, #(0x01 << 4)
+    str r1, [r0]
+
+    ldr r0, =0x11000064
+    mov r1, #0x2
+    str r1, [r0]
+
+    #endif
 	bl	save_boot_params
 	/*
 	 * set the cpu to SVC32 mode

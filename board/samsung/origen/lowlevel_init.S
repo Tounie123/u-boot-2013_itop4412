@@ -39,6 +39,8 @@ _TEXT_BASE:
 
 	.globl lowlevel_init
 lowlevel_init:
+    /* use iROM stack in bl2 */
+    ldr sp, =0x02060000
 	push	{lr}
 
 	/* r5 has always zero */
