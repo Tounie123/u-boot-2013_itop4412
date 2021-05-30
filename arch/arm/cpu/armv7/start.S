@@ -134,6 +134,7 @@ reset:
     mov r1, #0x1
     str r1, [r0]
 
+    #else
     // 点亮LED3
     ldr r0, =0x11000060
     mov r1, #(0x01 << 4)
@@ -175,6 +176,7 @@ reset:
 	/* the mask ROM code should have PLL and others stable */
 #ifndef CONFIG_SKIP_LOWLEVEL_INIT
 	bl	cpu_init_cp15
+
 	bl	cpu_init_crit
 #endif
 
