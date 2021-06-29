@@ -93,7 +93,8 @@ lowlevel_init:
 	 * Memory controller must be configured before relocating U-Boot
 	 * in ram.
 	 */
-	ldr	r0, =0x0ffffff		/* r0 <- Mask Bits*/
+	//ldr	r0, =0x0ffffff		/* r0 <- Mask Bits*/
+	ldr	r0, =0xff000fff		/* r0 <- Mask Bits*/
 	bic	r1, pc, r0		/* pc <- current addr of code */
 					/* r1 <- unmasked bits of pc */
 	ldr	r2, _TEXT_BASE		/* r2 <- original base addr in ram */
@@ -104,21 +105,11 @@ lowlevel_init:
 	/* init system clock */
 	bl system_clock_init
 
-    #if 1
-    // 点亮LED3
-    ldr r0, =0x11000060
-    mov r1, #(0x01 << 4)
-    str r1, [r0]
-
-    ldr r0, =0x11000064
-    mov r1, #0x2
-    str r1, [r0]
-    #endif
-
 	/* Memory initialize */
 	bl mem_ctrl_asm_init
 
 1:
+
 	/* for UART */
 	bl uart_asm_init
 	bl tzpc_init
@@ -312,6 +303,17 @@ skip_mpll:
     ldr r2, =VPLL_CON0_OFFSET
     bl wait_pll_lock
 
+    #if 1
+    // 点亮LED3
+    ldr r0, =0x11000060
+    mov r1, #(0x01 << 4)
+    str r1, [r0]
+
+    ldr r0, =0x11000064
+    mov r1, #0x2
+    str r1, [r0]
+    #endif
+
     ldr r1, =0x01000001
     ldr r2, =CLK_SRC_CPU_OFFSET
     str r1, [r0, r2]
@@ -344,6 +346,7 @@ skip_mpll:
     ldr r2, =CLK_SRC_TOP1_OFFSET
     str r1, [r0, r2]
 
+    // can not light led
     //ldr r2, =CLK_MUX_STAT_TOP1_OFFSET
     ldr r2, =0x0C414
     ldr r3, =0x01122110
@@ -365,6 +368,17 @@ skip_mpll:
     and r1, r1, #1
     cmp r1, #0
     bne v310_2
+
+    #if 0
+    // 点亮LED3
+    ldr r0, =0x11000060
+    mov r1, #(0x01 << 4)
+    str r1, [r0]
+
+    ldr r0, =0x11000064
+    mov r1, #0x2
+    str r1, [r0]
+    #endif
 
 @ ConControl
 #ifdef MEM_DLLl_ON

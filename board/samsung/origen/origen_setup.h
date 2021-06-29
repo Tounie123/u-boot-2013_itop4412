@@ -472,27 +472,27 @@
 #define MPLL_CON1_VAL		((MPLL_AFC_ENB << 31) | (MPLL_AFC << 0))
 
 /* EPLL_CON0 */
-#define EPLL_MDIV		0x30
-#define EPLL_PDIV		0x3
-#define EPLL_SDIV		0x2
+#define EPLL_MDIV		0x40
+#define EPLL_PDIV		0x2
+#define EPLL_SDIV		0x3
 #define EPLL_CON0_VAL		SET_PLL(EPLL_MDIV, EPLL_PDIV, EPLL_SDIV)
 
 /* EPLL_CON1 */
 #define EPLL_K			0x0
-#define EPLL_CON1_VAL		(EPLL_K >> 0)
+#define EPLL_CON1_VAL		0x66010000
 
 /* VPLL_CON0 */
-#define VPLL_MDIV		0x35
-#define VPLL_PDIV		0x3
-#define VPLL_SDIV		0x2
+#define VPLL_MDIV		0x48
+#define VPLL_PDIV		0x2
+#define VPLL_SDIV		0x3
 #define VPLL_CON0_VAL		SET_PLL(VPLL_MDIV, VPLL_PDIV, VPLL_SDIV)
 
 /* VPLL_CON1 */
 #define VPLL_SSCG_EN		DISABLE
-#define VPLL_SEL_PF_DN_SPREAD	0x0
-#define VPLL_MRR		0x11
-#define VPLL_MFR		0x0
-#define VPLL_K			0x400
+#define VPLL_SEL_PF_DN_SPREAD	0x3
+#define VPLL_MRR		0x6
+#define VPLL_MFR		0x1
+#define VPLL_K			0x0
 #define VPLL_CON1_VAL		((VPLL_SSCG_EN << 31)\
 				| (VPLL_SEL_PF_DN_SPREAD << 29) \
 				| (VPLL_MRR << 24) \
